@@ -8,14 +8,13 @@ WHITELIST=(
     "com.Slack"
     "com.google.android.gm"             # Gmail
     "com.google.android.apps.messaging" # Messages
-    "com.google.android.dialer"         # Phone (System app, added for safety)
+    "com.google.android.dialer"         # Phone
     "com.okta.android.auth"             # Okta Verify
 
     # Daily Utilities
     "com.google.android.calendar"       # Calendar
     "com.google.android.keep"           # Keep Notes
     "com.google.android.deskclock"      # Clock
-    "com.google.android.apps.photos"    # Gallery / Google Photos
     "com.nothing.camera1"               # Nothing Camera
     "com.android.settings"              # Settings
 
@@ -30,20 +29,27 @@ WHITELIST=(
     "bitpit.launcher"                   # Niagara Launcher
 )
 
-# 2. SYSTEM DISTRACTIONS (Browsers & Feeds)
+# 2. SYSTEM DISTRACTIONS (Browsers & Pre-installed Google Apps)
 SYSTEM_DISTRACTIONS=(
     "com.android.chrome"                      # Google Chrome
     "com.google.android.youtube"              # YouTube
     "com.google.android.googlequicksearchbox" # Google App
+    "com.google.android.apps.docs"            # Google Drive
+    "com.google.android.apps.nbu.files"       # Files by Google
+    "com.google.android.videos"               # Google TV
+    "com.google.android.apps.tachyon"         # Google Meet
+    "com.google.android.apps.photos"          # Google Photos
+    "com.google.android.apps.youtube.music"   # YT Music
+    "com.nothing.recorder"                    # Nothing Recorder
+    "com.google.android.apps.recorder"        # Google Recorder
 )
 
 if [ "$1" == "on" ]; then
     echo "Initiating Dumbphone Lockdown..."
     
-    # Remove the NextDNS filter if it was active from previous tests
     adb shell settings put global private_dns_mode opportunistic >/dev/null 2>&1
     
-    # Disable system distractions (Chrome, YouTube)
+    # Disable system distractions
     for app in "${SYSTEM_DISTRACTIONS[@]}"; do
         adb shell pm disable-user --user 0 "$app" >/dev/null 2>&1
     done
@@ -52,7 +58,6 @@ if [ "$1" == "on" ]; then
     THIRD_PARTY_APPS=$(adb shell pm list packages -3 | cut -d':' -f2 | tr -d '\r')
     for app in $THIRD_PARTY_APPS; do
         if [[ ! " ${WHITELIST[*]} " =~ " ${app} " ]]; then
-            echo "Disabling distraction: $app"
             adb shell pm disable-user --user 0 "$app" >/dev/null 2>&1
         fi
     done
