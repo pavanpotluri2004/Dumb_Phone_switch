@@ -1,5 +1,3 @@
-# Dumb_Phone_switch
-This is a script that you can run from your laptop (i think only ubuntu) to dsable the apps on your mobile except for the required ones and this can reverted only when you connect your mobile to the laptop and run the script
 # Dumbphone Lockdown Script
 
 This script transforms an Android smartphone (like the Nothing Phone 3 or OnePlus) into a minimalist "dumbphone" by using the Android Debug Bridge (ADB) to disable all distracting applications at the system level. 
