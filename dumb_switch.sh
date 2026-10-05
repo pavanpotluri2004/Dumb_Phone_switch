@@ -29,9 +29,10 @@ WHITELIST=(
     "bitpit.launcher"                   # Niagara Launcher
 )
 
-# 2. SYSTEM DISTRACTIONS (Browsers & Pre-installed Google Apps)
+# 2. SYSTEM DISTRACTIONS (Browsers & Pre-installed Apps)
 SYSTEM_DISTRACTIONS=(
     "com.android.chrome"                      # Google Chrome
+    "com.android.vending"                     # Google Play Store
     "com.google.android.youtube"              # YouTube
     "com.google.android.googlequicksearchbox" # Google App
     "com.google.android.apps.docs"            # Google Drive
@@ -40,8 +41,10 @@ SYSTEM_DISTRACTIONS=(
     "com.google.android.apps.tachyon"         # Google Meet
     "com.google.android.apps.photos"          # Google Photos
     "com.google.android.apps.youtube.music"   # YT Music
-    "com.nothing.recorder"                    # Nothing Recorder
+    "com.nothing.recorder"                    # Nothing Recorder (Old version)
+    "com.nothing.soundrecorder"               # Nothing Sound Recorder (Current)
     "com.google.android.apps.recorder"        # Google Recorder
+    "com.google.android.apps.bard"            # Google Gemini
 )
 
 if [ "$1" == "on" ]; then
@@ -51,6 +54,7 @@ if [ "$1" == "on" ]; then
     
     # Disable system distractions
     for app in "${SYSTEM_DISTRACTIONS[@]}"; do
+        echo "Checking system app: $app"
         adb shell pm disable-user --user 0 "$app" >/dev/null 2>&1
     done
 
@@ -58,6 +62,7 @@ if [ "$1" == "on" ]; then
     THIRD_PARTY_APPS=$(adb shell pm list packages -3 | cut -d':' -f2 | tr -d '\r')
     for app in $THIRD_PARTY_APPS; do
         if [[ ! " ${WHITELIST[*]} " =~ " ${app} " ]]; then
+            echo "Disabling distraction: $app"
             adb shell pm disable-user --user 0 "$app" >/dev/null 2>&1
         fi
     done
@@ -69,17 +74,19 @@ elif [ "$1" == "off" ]; then
     
     # Re-enable system distractions
     for app in "${SYSTEM_DISTRACTIONS[@]}"; do
+        echo "Restoring system app: $app"
         adb shell pm enable "$app" >/dev/null 2>&1
     done
 
     # Re-enable all 3rd-party apps
     ALL_THIRD_PARTY=$(adb shell pm list packages -3 -u | cut -d':' -f2 | tr -d '\r')
     for app in $ALL_THIRD_PARTY; do
+        echo "Restoring 3rd-party app: $app"
         adb shell pm enable "$app" >/dev/null 2>&1
     done
     
     echo "Restoration Complete. All apps are back."
 
 else
-    echo "Usage: ./dumb_switch.sh [on|off]"
+    echo "Usage: dumb_switch [on|off]"
 fi
