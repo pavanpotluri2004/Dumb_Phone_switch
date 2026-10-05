@@ -1,7 +1,7 @@
 #!/bin/bash
 # dumb_switch.sh
 
-# 1. YOUR EXACT WHITELIST
+# 1. YOUR EXACT WHITELIST (These apps will ALWAYS remain active)
 WHITELIST=(
     # Communication & Work
     "com.whatsapp"
@@ -18,18 +18,25 @@ WHITELIST=(
     "com.nothing.camera1"               # Nothing Camera
     "com.android.settings"              # Settings
 
-    # Third-Party Apps
+    # Finance, Food & Travel (Your New Additions)
     "com.amazon.mp3"                    # Amazon Music
     "com.phonepe.app"                   # PhonePe
     "com.routematic.employee"           # Routematic
     "com.dynamify.amex"                 # food2you
     "com.nothing.smartcenter"           # Nothing X
+    "com.grofers.customerapp"           # Blinkit/Grofers
+    "org.chennaimetrorail.appv1"        # Chennai Metro
+    "com.hdfcbank.android.now"          # HDFC Bank
+    "com.google.android.gms"            # Google Play Services
+    "in.swiggy.android"                 # Swiggy
+    "com.application.zomato"            # Zomato
+    "com.rapido.passenger"              # Rapido
 
     # Your Minimalist Launcher
     "bitpit.launcher"                   # Niagara Launcher
 )
 
-# 2. SYSTEM DISTRACTIONS (Browsers & Pre-installed Apps)
+# 2. SYSTEM DISTRACTIONS (Browsers & Pre-installed Apps to Hide)
 SYSTEM_DISTRACTIONS=(
     "com.android.chrome"                      # Google Chrome
     "com.android.vending"                     # Google Play Store
