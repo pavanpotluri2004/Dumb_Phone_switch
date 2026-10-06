@@ -18,7 +18,7 @@ WHITELIST=(
     "com.nothing.camera1"               # Nothing Camera
     "com.android.settings"              # Settings
 
-    # Finance, Food & Travel (Your New Additions)
+    # Finance, Food & Travel
     "com.amazon.mp3"                    # Amazon Music
     "com.phonepe.app"                   # PhonePe
     "com.routematic.employee"           # Routematic
@@ -31,6 +31,9 @@ WHITELIST=(
     "in.swiggy.android"                 # Swiggy
     "com.application.zomato"            # Zomato
     "com.rapido.passenger"              # Rapido
+
+    # Health & Fitness
+    "com.jumpropecounter"               # Jump Rope Counter
 
     # Your Minimalist Launcher
     "bitpit.launcher"                   # Niagara Launcher
